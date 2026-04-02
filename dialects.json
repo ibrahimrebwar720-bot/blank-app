@@ -2,20 +2,733 @@
   "rules": "تۆ پسپۆڕی زمانی کوردیت. وەرگێڕانەکان بەپێی ئەم فەرهەنگە ئەنجام بدە و شێوازی ئاخاوتنی ناوچەیی بپارێزە.",
   "dictionary": [
     {
+      "sorani": "ئەژنۆ",
+      "luri": "زانی، کوڵەک"
+    },
+    {
+      "sorani": "ئاوێنە",
+      "luri": "دیارەک"
+    },
+    {
+      "sorani": "ئەستێرە",
+      "luri": "ئسارە، هێسارە"
+    },
+    {
+      "sorani": "ئارەق",
+      "luri": "خوەیدان"
+    },
+    {
+      "sorani": "ئێستا",
+      "luri": "ئیسە"
+    },
+    {
+      "sorani": "ئەسپ",
+      "luri": "ئەس، ماین"
+    },
+    {
+      "sorani": "ئەو",
+      "luri": "هوو، ئەوە"
+    },
+    {
+      "sorani": "ئەمان",
+      "luri": "یانە، یەیشان"
+    },
+    {
+      "sorani": "باوک",
+      "luri": "باوە، بابی"
+    },
+    {
+      "sorani": "برا",
+      "luri": "کەکا"
+    },
+    {
+      "sorani": "بەڵێ",
+      "luri": "ها، ئە"
+    },
+    {
+      "sorani": "بنیادەم",
+      "luri": "بەشەر"
+    },
+    {
+      "sorani": "بەیانی (ڕۆژ)",
+      "luri": "سوو"
+    },
+    {
+      "sorani": "بێگانە",
+      "luri": "هانی، نامەحرەم"
+    },
+    {
+      "sorani": "بەفر",
+      "luri": "وەفر"
+    },
+    {
+      "sorani": "باران",
+      "luri": "وارۆن"
+    },
+    {
+      "sorani": "بای وەشین",
+      "luri": "وا"
+    },
+    {
+      "sorani": "بۆن",
+      "luri": "بوو"
+    },
+    {
+      "sorani": "بێژینگ",
+      "luri": "بێژەن"
+    },
+    {
+      "sorani": "بزن",
+      "luri": "ڤێزن"
+    },
+    {
+      "sorani": "بەرز",
+      "luri": "بڵینگ"
+    },
+    {
+      "sorani": "بچووک",
+      "luri": "بۊچک، قیت"
+    },
+    {
+      "sorani": "بنی کانی",
+      "luri": "بنچەک"
+    },
+    {
+      "sorani": "بێدەنگ",
+      "luri": "قڕ، مۆت"
+    },
+    {
+      "sorani": "پیر",
+      "luri": "کوهن، گەپ"
+    },
+    {
+      "sorani": "پێ",
+      "luri": "پا"
+    },
+    {
+      "sorani": "پەنجە",
+      "luri": "کلک"
+    },
+    {
+      "sorani": "پشت",
+      "luri": "کلەک"
+    },
+    {
+      "sorani": "پرد",
+      "luri": "پڕ"
+    }
+  ]
+}
+{
+  {
       "sorani": "خەو",
-      "hawrami": "خەفتگی",
+      "hawrami": "وەرەم",
       "zazaki": "Hewn"
     },
     {
       "sorani": "پێڵاو",
-      "hawrami": "کڵاش",
+      "hawrami": "کڵاش/کاڵە",
       "luri": "کەوش"
     },
     {
       "sorani": "زۆر",
       "kurmanji": "Gelek",
       "luri": "فرە",
-      "zazaki": "Zaf"
+      "zazaki": "Zof/Zaf"
+    },
+    {
+      "sorani": "کەم",
+      "hawrami": "کەمێ",
+      "zazaki": "Şenik",
+      "kurmanji": "Hindik"
+    },
+    {
+      "sorani": "منداڵ",
+      "hawrami": "زارۆڵە",
+      "luri": "بچەک/چەکەڵ",
+      "kurmanji": "Zarok"
+    },
+    {
+      "sorani": "کچ",
+      "hawrami": "کناچە",
+      "luri": "دۆێت",
+      "kurmanji": "Keç"
+    },
+    {
+      "sorani": "باش",
+      "hawrami": "خاس",
+      "luri": "خاس",
+      "kurmanji": "Rind/Baş"
+    },
+    {
+      "sorani": "جوان",
+      "hawrami": "ڕەنگین",
+      "luri": "قەشەنگ",
+      "kurmanji": "Bedew"
+    },
+    {
+      "sorani": "بەیانی (سبەی)",
+      "kurmanji": "Sibê",
+      "zazaki": "Meşte",
+      "luri": "سوو"
+    },
+    {
+      "sorani": "ئێستا",
+      "hawrami": "ئیسە",
+      "luri": "ئیسە",
+      "kurmanji": "Niha"
+    },
+    {
+      "sorani": "بۆچی",
+      "hawrami": "پەی چێشی",
+      "luri": "ئەڕا چە",
+      "kurmanji": "Çima"
+    },
+    {
+      "sorani": "چۆن",
+      "hawrami": "چەنی",
+      "luri": "چۊن",
+      "kurmanji": "Çawa"
+    },
+    {
+      "sorani": "سپاس",
+      "kurmanji": "Spas",
+      "zazaki": "Berxudar be"
+    },
+    {
+      "sorani": "بەڵێ",
+      "zazaki": "Eya",
+      "kurmanji": "Erê"
+    },
+    {
+      "sorani": "نەخێر",
+      "zazaki": "Nê",
+      "kurmanji": "Na"
+    },
+    {
+      "sorani": "نان",
+      "luri": "نۊن",
+      "zazaki": "Sifre"
+    },
+    {
+      "sorani": "ئاو",
+      "zazaki": "Awe"
+    },
+    {
+      "sorani": "وەرە",
+      "hawrami": "بەو",
+      "luri": "بیا"
+    },
+    {
+      "sorani": "بڕۆ",
+      "hawrami": "لوە",
+      "luri": "بچوو"
+    },
+    {
+      "sorani": "گەورە",
+      "hawrami": "گۆرە",
+      "luri": "گەپ",
+      "kurmanji": "Mezin"
+    },
+    {
+      "sorani": "بچووک",
+      "hawrami": "ورتە",
+      "luri": "قیتە",
+      "kurmanji": "Biçûk"
+    },
+    {
+      "sorani": "تەڕ",
+      "hawrami": "خیوس"
+    },
+    {
+      "sorani": "ئاوێنە",
+      "hawrami": "وینەنمای"
+    },
+    {
+      "sorani": "دۆست",
+      "zazaki": "Olbaz/Embaz",
+      "luri": "دۆس"
+    },
+    {
+      "sorani": "مریشک",
+      "hawrami": "کەرگە",
+      "luri": "کەرک"
+    },
+    {
+      "sorani": "کوڕ",
+      "hawrami": "کوڕە",
+      "luri": "کۆڕ"
+    },
+    {
+      "sorani": "باوک",
+      "hawrami": "بابە",
+      "luri": "بووە"
+    },
+    {
+      "sorani": "دایک",
+      "hawrami": "ئەدە",
+      "luri": "داڵک"
+    },
+    {
+      "sorani": "برا",
+      "hawrami": "تاتا",
+      "luri": "برار"
+    },
+    {
+      "sorani": "خوشک",
+      "hawrami": "واڵە",
+      "luri": "خوەشک"
+    },
+    {
+      "sorani": "خواردن",
+      "hawrami": "واردەی",
+      "luri": "هۆردەن"
+    },
+    {
+      "sorani": "ڕۆیشتن",
+      "hawrami": "لوای",
+      "luri": "ڕەدە/ڕۊین",
+      "kurmanji": "Çûn",
+      "zazaki": "Şiyayiş"
+    },
+    {
+      "sorani": "هێلکە",
+      "hawrami": "هێڵە",
+      "luri": "خا"
+    },
+    {
+      "sorani": "لووت",
+      "hawrami": "لووتە",
+      "luri": "پۆز"
+    },
+    {
+      "sorani": "چاو",
+      "hawrami": "چەم",
+      "luri": "تیە"
+    },
+    {
+      "sorani": "قاچ",
+      "hawrami": "پا",
+      "luri": "قۆڵ"
+    },
+    {
+      "sorani": "بەیانی (سەحەر)",
+      "hawrami": "سەحەر",
+      "luri": "سوو"
+    },
+    {
+      "sorani": "تەواو",
+      "zazaki": "Qediya"
+    },
+    {
+      "sorani": "پێکەنین",
+      "kurmanji": "Kenîn",
+      "zazaki": "Huyayene/Huyayiş",
+      "hawrami": "خەنە"
+    },
+    {
+      "sorani": "گریان",
+      "hawrami": "بەرمە",
+      "kurmanji": "Girîn",
+      "zazaki": "Bermayiş"
+    },
+    {
+      "sorani": "سوێر",
+      "hawrami": "سۆر",
+      "luri": "شۊر",
+      "kurmanji": "Şor",
+      "zazaki": "Solin"
+    },
+    {
+      "sorani": "خۆشەویستی",
+      "kurmanji": "Evîn",
+      "zazaki": "Heskerdene",
+      "hawrami": "وەشەویسی"
+    },
+    {
+      "sorani": "هاوڕێ",
+      "kurmanji": "Heval",
+      "zazaki": "Embaz",
+      "hawrami": "ڕەفێق"
+    },
+    {
+      "sorani": "مێرد",
+      "hawrami": "شوی",
+      "kurmanji": "Mêr",
+      "zazaki": "Mêrdek"
+    },
+    {
+      "sorani": "خەزوور",
+      "hawrami": "وەسیە",
+      "kurmanji": "Xezûr",
+      "zazaki": "Vesur"
+    },
+    {
+      "sorani": "بووک",
+      "hawrami": "وەیوە",
+      "luri": "بۊگ",
+      "kurmanji": "Bûk",
+      "zazaki": "Veyve"
+    },
+    {
+      "sorani": "زاوا",
+      "kurmanji": "Zava",
+      "zazaki": "Zama"
+    },
+    {
+      "sorani": "پرسیار",
+      "hawrami": "پەرسار",
+      "kurmanji": "Pirs",
+      "zazaki": "Pers"
+    },
+    {
+      "sorani": "وەڵام",
+      "kurmanji": "Bersiv"
+    },
+    {
+      "sorani": "درۆ",
+      "luri": "درۊ",
+      "kurmanji": "Derew",
+      "zazaki": "Zûr"
+    },
+    {
+      "sorani": "دانیشتن",
+      "kurmanji": "Rûniştin",
+      "zazaki": "Roniştiş",
+      "hawrami": "نیشتەی"
+    },
+    {
+      "sorani": "هەستان",
+      "hawrami": "هۆرزای",
+      "luri": "هەسان",
+      "kurmanji": "Rabin",
+      "zazaki": "Werziştiş"
+    },
+    {
+      "sorani": "نووستن",
+      "hawrami": "وەتەی",
+      "luri": "خەفتن",
+      "kurmanji": "Razan",
+      "zazaki": "Rakewtiş"
+    },
+    {
+      "sorani": "کراس",
+      "hawrami": "کەوا"
+    },
+    {
+      "sorani": "شەرواڵ",
+      "hawrami": "پانتۆڵ"
+    },
+    {
+      "sorani": "سمێڵ",
+      "hawrami": "سێپاڵە",
+      "kurmanji": "Simêl",
+      "zazaki": "Simbêl"
+    },
+    {
+      "sorani": "مل",
+      "kurmanji": "Stû"
+    },
+    {
+      "sorani": "سک",
+      "hawrami": "زگ",
+      "kurmanji": "Zik"
+    },
+    {
+      "sorani": "سنگ",
+      "kurmanji": "Sîng",
+      "zazaki": "Sêne"
+    },
+    {
+      "sorani": "قۆڵ",
+      "kurmanji": "Mil",
+      "zazaki": "Bask"
+    },
+    {
+      "sorani": "گەدە",
+      "kurmanji": "Aşîk",
+      "zazaki": "Mide"
+    },
+    {
+      "sorani": "جگەر",
+      "kurmanji": "Keze"
+    },
+    {
+      "sorani": "پەنجە",
+      "kurmanji": "Tilî",
+      "zazaki": "Bişte"
+    },
+    {
+      "sorani": "نینۆک",
+      "hawrami": "ناخوون",
+      "kurmanji": "Neynok",
+      "zazaki": "Ningi"
+    },
+    {
+      "sorani": "قورس",
+      "kurmanji": "Giran"
+    },
+    {
+      "sorani": "سووک",
+      "luri": "سۊک",
+      "kurmanji": "Sivik"
+    },
+    {
+      "sorani": "درێژ",
+      "luri": "دریژ",
+      "zazaki": "Derx"
+    },
+    {
+      "sorani": "کورت",
+      "hawrami": "کوڵ",
+      "zazaki": "Kilim"
+    },
+    {
+      "sorani": "تەنک",
+      "kurmanji": "Zirav"
+    },
+    {
+      "sorani": "ئەستوور",
+      "luri": "ئەستۊر",
+      "kurmanji": "Stûr",
+      "zazaki": "Oç"
+    },
+    {
+      "sorani": "تفت",
+      "kurmanji": "Tif"
+    },
+    {
+      "sorani": "زوو",
+      "luri": "زۊ",
+      "zazaki": "Rew"
+    },
+    {
+      "sorani": "درەنگ",
+      "hawrami": "دێر",
+      "kurmanji": "Dereng",
+      "zazaki": "Ere"
+    },
+    {
+      "sorani": "تاریک",
+      "kurmanji": "Tarî"
+    },
+    {
+      "sorani": "ڕووناک",
+      "hawrami": "ڕۆشن",
+      "kurmanji": "Ronî",
+      "zazaki": "Aşti"
+    },
+    {
+      "sorani": "بەرز",
+      "kurmanji": "Bilind"
+    },
+    {
+      "sorani": "قوڵ",
+      "luri": "قۊڵ",
+      "kurmanji": "Kûr",
+      "zazaki": "Xorî"
+    },
+    {
+      "sorani": "تەنیا",
+      "kurmanji": "Bi tenê",
+      "zazaki": "Teyna"
+    },
+    {
+      "sorani": "پێکەوە",
+      "hawrami": "پێوە",
+      "luri": "وەگەردیەک",
+      "kurmanji": "Bi hev re",
+      "zazaki": "Pêra"
+    },
+    {
+      "sorani": "نزیک",
+      "zazaki": "Nezdî"
+    },
+    {
+      "sorani": "دوور",
+      "luri": "دۊر",
+      "zazaki": "Dûrî"
+    },
+    {
+      "sorani": "لێرە",
+      "hawrami": "چێگە",
+      "kurmanji": "Li vir",
+      "zazaki": "Tiya"
+    },
+    {
+      "sorani": "لەوێ",
+      "hawrami": "چەولای",
+      "kurmanji": "Li wir",
+      "zazaki": "Uca"
+    },
+    {
+      "sorani": "ژیان",
+      "hawrami": "ژیای",
+      "zazaki": "Ciwîyayiş"
+    },
+    {
+      "sorani": "شەڕ",
+      "hawrami": "جەنگ",
+      "zazaki": "Ceng"
+    },
+    {
+      "sorani": "برسی",
+      "hawrami": "وێسی",
+      "kurmanji": "Birçî",
+      "zazaki": "Veyşan"
+    },
+    {
+      "sorani": "تینوو",
+      "hawrami": "تەژنە",
+      "luri": "تێنی",
+      "kurmanji": "Tî",
+      "zazaki": "Têşan"
+    },
+    {
+      "sorani": "تێر",
+      "zazaki": "Mird"
+    },
+    {
+      "sorani": "ترس",
+      "hawrami": "تەرسێ",
+      "kurmanji": "Tirs",
+      "zazaki": "Ters"
+    },
+    {
+      "sorani": "هێز",
+      "hawrami": "تاقەت",
+      "kurmanji": "Hêz",
+      "zazaki": "Qewet"
+    },
+    {
+      "sorani": "پەلە",
+      "hawrami": "شتاو",
+      "kurmanji": "Lez"
+    },
+    {
+      "sorani": "چاوەڕێ",
+      "hawrami": "چەمەڕا",
+      "kurmanji": "Li bendê",
+      "zazaki": "Pepa"
+    },
+    {
+      "sorani": "جێگا",
+      "hawrami": "یاگە",
+      "kurmanji": "Cih",
+      "zazaki": "Caa"
+    },
+    {
+      "sorani": "ڕەگ",
+      "kurmanji": "Reh",
+      "zazaki": "Rîşe"
+    },
+    {
+      "sorani": "لق",
+      "hawrami": "چڵ",
+      "kurmanji": "Şax"
+    },
+    {
+      "sorani": "گۆزە",
+      "hawrami": "کەنوو",
+      "kurmanji": "Kûz",
+      "zazaki": "Dîze"
+    },
+    {
+      "sorani": "کلیل",
+      "kurmanji": "Mifte",
+      "zazaki": "Kilît"
+    },
+    {
+      "sorani": "دیوار",
+      "zazaki": "Dês"
+    },
+    {
+      "sorani": "سەقف",
+      "hawrami": "بان",
+      "luri": "بان",
+      "kurmanji": "Bani",
+      "zazaki": "Bane"
+    },
+    {
+      "sorani": "حەوشە",
+      "hawrami": "حەوشێ",
+      "kurmanji": "Hewş"
+    },
+    {
+      "sorani": "دراوسێ",
+      "hawrami": "هەمسایە",
+      "luri": "هاوسا",
+      "kurmanji": "Cîran"
+    },
+    {
+      "sorani": "میوان",
+      "hawrami": "مێمان",
+      "luri": "میەمان",
+      "kurmanji": "Mêvan",
+      "zazaki": "Meyman"
+    },
+    {
+      "sorani": "گۆڕانکاری",
+      "hawrami": "فاڕیای",
+      "luri": "ئاڵشتکاری",
+      "kurmanji": "Guhertin",
+      "zazaki": "Vuriyayiş"
+    },
+    {
+      "sorani": "نەخۆش",
+      "hawrami": "وەشەو",
+      "kurmanji": "Nexweş",
+      "zazaki": "Nêweş"
+    },
+    {
+      "sorani": "دەرمان",
+      "hawrami": "دەوا"
+    },
+    {
+      "sorani": "پزیشک",
+      "hawrami": "حەکیم",
+      "kurmanji": "Nijdar"
+    },
+    {
+      "sorani": "خوێندن",
+      "hawrami": "وەنەی",
+      "luri": "خوەنین",
+      "zazaki": "Wendene"
+    },
+    {
+      "sorani": "یاری",
+      "kurmanji": "Lîstik",
+      "zazaki": "Kay"
+    },
+    {
+      "sorani": "گۆرانی",
+      "kurmanji": "Stran",
+      "zazaki": "Klam"
+    },
+    {
+      "sorani": "هەڵپەڕکێ",
+      "luri": "چووپی",
+      "kurmanji": "Govend",
+      "zazaki": "Govende"
+    },
+    {
+      "sorani": "شمشێر",
+      "kurmanji": "Şûr"
+    },
+    {
+      "sorani": "ئەڵقە",
+      "kurmanji": "Gusti"
+    },
+    {
+      "sorani": "گوارە",
+      "kurmanji": "Guhar",
+      "zazaki": "Goşare"
+    },
+    {
+      "sorani": "ملوانکە",
+      "hawrami": "گەردەنە",
+      "kurmanji": "Gerdenî",
+      "zazaki": "Gerdeniye"
     }
   ]
 }
