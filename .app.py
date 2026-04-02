@@ -16,15 +16,20 @@ def get_base_64(file):
 logo = get_base_64("logo.gif")
 search_icon = get_base_64("search.gif")
 
-# --- ٢. بارکردنی داتاکان لە JSON ---
+# --- ٢. بارکردنی داتاکان لە JSON (پێرفێکت کراو بۆ ڕێزمان و جێناو) ---
 @st.cache_data
 def load_all_data():
     try:
         with open('dialects.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
-        # لێرە فەرهەنگەکە ڕێکدەخەین بۆ ئەوەی AI بە باشی بیبینێت
-        dict_text = json.dumps(data.get('dictionary', []), ensure_ascii=False, indent=2)
-        return dict_text
+        
+        # کۆکردنەوەی هەموو زانیارییەکان: یاساکان، جێناوەکان، و فەرهەنگەکە
+        rules = data.get('rules', '')
+        pronouns = json.dumps(data.get('pronouns', {}), ensure_ascii=False)
+        dictionary = json.dumps(data.get('dictionary', []), ensure_ascii=False, indent=2)
+        
+        full_context = f"یاساکانی ڕێزمان:\n{rules}\n\nجێناوەکان:\n{pronouns}\n\nفەرهەنگی وشەکان:\n{dictionary}"
+        return full_context
     except Exception as e:
         return "فەرهەنگەکە بەردەست نییە."
 
@@ -33,12 +38,12 @@ K_DATA = load_all_data()
 # --- ٣. ڕێنماییە سیستەمییەکە (توندکراوە بۆ JSON) ---
 SYSTEM_PROMPT = f"""
 تۆ پسپۆڕی زمانی کوردیت. 
-یاسای بنەڕەتی: پێش هەموو شتێک سەیری ئەم فەرهەنگەی خوارەوە بکە:
+یاسای بنەڕەتی: پێش هەموو شتێک سەیری ئەم داتایانەی خوارەوە بکە و پابەندی ڕێزمان و جێناوەکان بە:
 {K_DATA}
 
 ١. ئەگەر وشەکە لە فەرهەنگەکەدا هەبوو، دەبێت بەتەواوی ئەو وەرگێڕانە بەکاربێنیت کە لێرەدا هەیە.
 ٢. ئەگەر وشەکە نەبوو، ئینجا زانیارییە گشتییەکانی خۆت بەکاربێنە بەپێی شێوەزارەکان.
-٣. سۆرانی، هەورامی،بە پیتی ئارامی بنووسە. Kurmancî و Zazakî بە پیتی لاتینی. لوڕی بە ڕێنوسی فارسی بنوسە.
+٣. سۆرانی، هەورامی بە پیتی ئارامی بنووسە. Kurmancî و Zazakî بە پیتی لاتینی. لوڕی بە ڕێنوسی فارسی بنوسە.
 لوڕی زۆر ورد وەرگێڕە، ڕێنوسی فارسی و وەرگێڕانی فارسی جیابکەوە.
 ٤. تەنها وەڵامەکە بنووسە بێ هیچ دەقێکی زیادە.
 """
@@ -75,7 +80,7 @@ def get_ai_response(text, src, trg, ttype):
     if not keys: return "تکایە کلیلەکان لە Secrets ڕێکبخە."
     
     genai.configure(api_key=random.choice(keys))
-    # بەکارهێنانی مۆدێلی Lite Preview بۆ خێرایی و کەمی تێچوو
+    # پابەندی بە مۆدێلی داواکراو
     model = genai.GenerativeModel('gemini-3.1-flash-lite-preview', system_instruction=SYSTEM_PROMPT)
     
     prompts = {
