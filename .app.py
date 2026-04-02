@@ -16,18 +16,15 @@ def get_base_64(file):
 logo = get_base_64("logo.gif")
 search_icon = get_base_64("search.gif")
 
-# --- ٢. بارکردنی داتاکان لە JSON (پێرفێکت کراو بۆ ڕێزمان و جێناو) ---
+# --- ٢. بارکردنی داتاکان لە JSON ---
 @st.cache_data
 def load_all_data():
     try:
         with open('dialects.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
-        
-        # کۆکردنەوەی هەموو زانیارییەکان: یاساکان، جێناوەکان، و فەرهەنگەکە
         rules = data.get('rules', '')
         pronouns = json.dumps(data.get('pronouns', {}), ensure_ascii=False)
         dictionary = json.dumps(data.get('dictionary', []), ensure_ascii=False, indent=2)
-        
         full_context = f"یاساکانی ڕێزمان:\n{rules}\n\nجێناوەکان:\n{pronouns}\n\nفەرهەنگی وشەکان:\n{dictionary}"
         return full_context
     except Exception as e:
@@ -35,21 +32,17 @@ def load_all_data():
 
 K_DATA = load_all_data()
 
-# --- ٣. ڕێنماییە سیستەمییەکە (توندکراوە بۆ JSON) ---
+# --- ٣. ڕێنماییە سیستەمییەکە ---
 SYSTEM_PROMPT = f"""
 تۆ پسپۆڕی زمانی کوردیت. 
 یاسای بنەڕەتی: پێش هەموو شتێک سەیری ئەم داتایانەی خوارەوە بکە و پابەندی ڕێزمان و جێناوەکان بە:
 {K_DATA}
-
-١. ئەگەر وشەکە لە فەرهەنگەکەدا هەبوو، دەبێت بەتەواوی ئەو وەرگێڕانە بەکاربێنیت کە لێرەدا هەیە.
-٢. ئەگەر وشەکە نەبوو، ئینجا زانیارییە گشتییەکانی خۆت بەکاربێنە بەپێی شێوەزارەکان.
-٣. سۆرانی، هەورامی بە پیتی ئارامی بنووسە. Kurmancî و Zazakî بە پیتی لاتینی. لوڕی بە ڕێنوسی فارسی بنوسە.
-لوڕی زۆر ورد وەرگێڕە، ڕێنوسی فارسی و وەرگێڕانی فارسی جیابکەوە.
-٤. تەنها وەڵامەکە بنووسە بێ هیچ دەقێکی زیادە.
-.٥.خێرا وەرگێڕان بکە (ئەمەیان زۆر توندە)
+١. ئەگەر وشەکە لە فەرهەنگەکەدا هەبوو، دەبێت بەتەواوی ئەو وەرگێڕانە بەکاربێنیت.
+٢. سۆرانی، هەورامی بە پیتی ئارامی. Kurmancî و Zazakî بە لاتینی. لوڕی بە ڕێنوسی فارسی.
+٣. تەنها وەڵامەکە بنووسە بێ هیچ دەقێکی زیادە.
 """
 
-# --- ٤. دیزاینی CSS (ڕەنگە سپییەکە لێرە چاک کراوە) ---
+# --- ٤. دیزاینی CSS (چاککردنی گۆشە سپییەکان) ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap');
@@ -63,33 +56,42 @@ st.markdown(f"""
     .block-container {{ padding-top: 1rem !important; max-width: 450px !important; }}
     * {{ font-family: 'Vazirmatn', sans-serif !important; direction: rtl; text-align: right; color: #F8FDFE !important; }}
     
-    /* چاککردنی ڕەنگی سپی منووەکان و لیستەکان */
+    /* چاککردنی گۆشە سپییەکانی خانەی نووسین */
+    [data-testid="stForm"], [data-testid="stWidgetLabel"], .stTextArea, .stTextArea > div {{
+        background-color: transparent !important;
+    }}
+    
+    textarea {{ 
+        background-color: rgba(30, 20, 60, 0.8) !important; 
+        border-radius: 20px !important; 
+        border: 1px solid rgba(107, 91, 226, 0.4) !important;
+        color: white !important;
+        padding: 15px !important;
+    }}
+    
+    /* لابردنی سپیایی دەوری Selectbox و textarea */
+    div[data-baseweb="select"] > div, div[data-baseweb="base-input"] {{
+        background-color: rgba(42, 27, 84, 0.5) !important;
+        border-radius: 15px !important;
+        border: 1px solid rgba(107, 91, 226, 0.2) !important;
+    }}
+
     div[data-baseweb="popover"], div[data-baseweb="menu"], ul {{ 
         background-color: #1A1230 !important; 
         border: 1px solid rgba(107, 91, 226, 0.4) !important; 
         border-radius: 12px !important;
     }}
     
-    li[data-baseweb="option"] {{ 
-        background-color: #1A1230 !important; 
-        color: white !important; 
-    }}
+    li[data-baseweb="option"] {{ background-color: #1A1230 !important; color: white !important; }}
+    li[data-baseweb="option"]:hover {{ background-color: #5A49D9 !important; }}
     
-    li[data-baseweb="option"]:hover {{ 
-        background-color: #5A49D9 !important; 
-    }}
-
-    /* چاککردنی پاشبنەمای نوسین لە مۆبایلدا */
-    div[data-testid="stMarkdownContainer"] p {{ color: #F8FDFE !important; }}
-    
-    div[data-baseweb="select"] > div {{ background: rgba(42, 27, 84, 0.4) !important; border: 1px solid rgba(107, 91, 226, 0.2) !important; border-radius: 15px !important; }}
     .stTabs [data-baseweb="tab-list"] {{ display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; background: rgba(255, 255, 255, 0.03); padding: 5px; border-radius: 15px; }}
     .stTabs [data-baseweb="tab"] {{ width: 100% !important; border: none !important; }}
     button[data-baseweb="tab"][aria-selected="true"] {{ background: #5A49D9 !important; border-radius: 10px !important; }}
-    textarea {{ background: rgba(30, 20, 60, 0.7) !important; border-radius: 20px !important; border: 1px solid rgba(107, 91, 226, 0.3) !important; }}
-    .result-area {{ background: rgba(90, 73, 217, 0.1) !important; padding: 20px; border-radius: 20px; border: 1px solid rgba(107, 91, 226, 0.3) !important; text-align: center; font-size: 1.2rem; }}
+    
+    .result-area {{ background: rgba(90, 73, 217, 0.15) !important; padding: 20px; border-radius: 20px; border: 1px solid rgba(107, 91, 226, 0.4) !important; text-align: center; font-size: 1.2rem; }}
     .stButton>button {{ background: linear-gradient(135deg, #6B5BE2 0%, #5A49D9 100%) !important; border-radius: 15px !important; border: none !important; height: 50px; width: 100%; }}
-    .daily-banner {{ background: rgba(90, 73, 217, 0.15); padding: 8px; border-radius: 12px; text-align: center; margin-bottom: 15px; color: #B5AAFF !important; font-size: 0.8rem; }}
+    .daily-banner {{ background: rgba(90, 73, 217, 0.2); padding: 8px; border-radius: 12px; text-align: center; margin-bottom: 15px; color: #B5AAFF !important; font-size: 0.8rem; }}
     </style>
     """, unsafe_allow_html=True)
 
@@ -98,21 +100,17 @@ st.markdown(f"""
 def get_ai_response(text, src, trg, ttype):
     keys = [st.secrets.get(f"GEMINI_KEY_{i}") for i in range(1, 21) if st.secrets.get(f"GEMINI_KEY_{i}")]
     if not keys: return "تکایە کلیلەکان لە Secrets ڕێکبخە."
-    
     genai.configure(api_key=random.choice(keys))
-    # پابەندی بە مۆدێلی داواکراو
     model = genai.GenerativeModel('gemini-3-flash-preview', system_instruction=SYSTEM_PROMPT)
-    
     prompts = {
         "translate": f"وەرگێڕە لە {src} بۆ {trg}: {text}",
         "abc": f"بگۆڕە (ئارامی ↔ لاتینی): {text}",
         "num": f"ژمارە بکە بە پیت بە شێوەزاری {trg}: {text}"
     }
-    
     try:
         response = model.generate_content(prompts.get(ttype, text))
         return response.text
-    except Exception as e:
+    except Exception:
         return "هەڵەیەک ڕوویدا، دووبارە هەوڵ بدەرەوە."
 
 # --- ٦. UI ئەپەکە ---
