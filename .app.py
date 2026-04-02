@@ -75,7 +75,7 @@ def get_ai_response(text, src, trg, ttype):
     
     genai.configure(api_key=random.choice(keys))
     # بەکارهێنانی مۆدێلی Lite Preview بۆ خێرایی و کەمی تێچوو
-    model = genai.GenerativeModel('gemini-3.1-flash-lite-preview-0924', system_instruction=SYSTEM_PROMPT)
+    model = genai.GenerativeModel('gemini-3.1-flash-lite-preview', system_instruction=SYSTEM_PROMPT)
     
     prompts = {
         "translate": f"وەرگێڕە لە {src} بۆ {trg}: {text}",
