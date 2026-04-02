@@ -46,6 +46,7 @@ SYSTEM_PROMPT = f"""
 ٣. سۆرانی، هەورامی بە پیتی ئارامی بنووسە. Kurmancî و Zazakî بە پیتی لاتینی. لوڕی بە ڕێنوسی فارسی بنوسە.
 لوڕی زۆر ورد وەرگێڕە، ڕێنوسی فارسی و وەرگێڕانی فارسی جیابکەوە.
 ٤. تەنها وەڵامەکە بنووسە بێ هیچ دەقێکی زیادە.
+.٥.خێرا وەرگێڕان بکە (ئەمەیان زۆر توندە)
 """
 
 # --- ٤. دیزاینی CSS ---
@@ -81,7 +82,7 @@ def get_ai_response(text, src, trg, ttype):
     
     genai.configure(api_key=random.choice(keys))
     # پابەندی بە مۆدێلی داواکراو
-    model = genai.GenerativeModel('gemini-3.1-flash-lite-preview', system_instruction=SYSTEM_PROMPT)
+    model = genai.GenerativeModel('gemini-3-flash-preview', system_instruction=SYSTEM_PROMPT)
     
     prompts = {
         "translate": f"وەرگێڕە لە {src} بۆ {trg}: {text}",
