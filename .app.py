@@ -15,7 +15,21 @@ def get_base_64(file):
 logo = get_base_64("logo.gif")
 search_icon = get_base_64("search.gif")
 
-# --- ٢. داتای وشەکان و ڕێنمایی وەرگێڕان ---
+# --- ٢. بارکردنی داتاکان لە JSON و بەکارهێنانی Cache ---
+@st.cache_data
+def load_all_data():
+    try:
+        with open('dialects.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        # گۆڕینی لیستی وشەکان بۆ دەق بۆ ئەوەی AI تێیبگات
+        dict_text = "\n".join([str(w) for w in data['dictionary']])
+        return f"ڕێساکان:\n{data['rules']}\nوشەکان:\n{dict_text}"
+    except:
+        return "Rules: Translate accurately."
+
+K_BASE = load_all_data()
+
+# --- ٣. داتای وشەکان و ڕێنمایی وەرگێڕان ---
 K_BASE = """
 تۆ پسپۆڕی زمانی کوردیت، شارەزایی تەواوت هەیە لە هەموو شێوەزارەکان، وشە ئەکادیمی و فۆلکلۆریەکان دەزانیت
 زۆر وردی لە وەرگێڕان، بێ ئەوەی هیچی زیاد بنوسیت ڕستەکە وەک کەسێکی شارەزا له (لوڕی و هەورامی و kurmancî و
@@ -25,214 +39,8 @@ zazakî و سۆرانی) وەردەگێڕیت
 (سڵاو چۆنیت من ناوم ئەحمەدە ←slaw chonit mn nawm ahmede) کاری تۆ تەنها گۆڕینی ڕێنوسە لێرەدا نەوەک وەرگێڕان.
 .٣. لە گۆڕینی ژمارە بۆ شێوەزارەکان ورد بە، شێوەزارەکان تێکەڵ مەکە.
 .٤. سۆرانی و هەورامی و لوڕی پیتی ئارامین، kurmancî و zazakî لاتینی.
-وشەکان:
-- خەو: (H:وەرەم, Z:Hewn). پێڵاو: (H:کڵاش/کاڵە, L:کەوش). 
-    - زۆر: (K:Gelek, L:فرە, Z:Zof/Zaf). کەم: (H:کەمێ, Z:Şenik).
-    - منداڵ: (H:زارۆڵە, L:بچەک, K:Zarok). کچ: (H:کناچە, L:دۆێت, K:Keç).
-    - باش: (H:خاس, L:خاس, K:Rind/Baş). جوان: (H:ڕەنگین, L:قەشەنگ, K:Bedew).
-    - بەیانی (Tomorrow): (K:Sibê, Z:Meşte). ئێستا: (H:ئیسە, L:ئیسە, K:Niha).
-    - بۆچی: (H:پەی چێشی, L:ئەڕا چە, K:Çima). چۆن: (H:چەنی, L:چۊن, K:Çawa).
-    - سپاس: (K:Spas, Z:Berxudar be). بەڵێ: (Z:Eya, K:Erê). نەخێر: (Z:Nê, K:Na).
-    - نان: (H:نان, L:نۊن, Z:Sifre). ئاو: (H:ئاو, L:ئاو, Z:Awe)..
-    - وەرە: (H:بەو, L:بیا). بڕۆ: (H:لوە, L:بچوو).
-    - گەورە: (H:گۆرە, L:گەپ, K:Mezin). بچووک: (H:ورتە, L:قیتە, K:Biçûk).
-    - تەڕ: (H:خیوس). ئاوێنە: (H:وینەنمای). دۆست: (Z:Olbaz/Embaz).
-    - مریشک: (H:کەرگە, L:کەرک). منداڵ: (H:زارۆڵە, L:چەکەڵ, K:Zarok). نان: (H:نان, L:نۊن, Z:Sifre).
-    - کچ: (H:کناچە, L:دۆێت, K:Keç). کوڕ: (H:کوڕە, L:کۆڕ). باوک: (H:بابە, L:بووە). دایک: (H:ئەدە, L:داڵک).
-    - برا: (H:تاتا, L:برار). خوشک: (H:واڵە, L:خوەشک). خواردن: (H:واردەی, L:هۆردەن). ڕۆیشتن: (H:لوای, L:ڕەدە).
-    - هێلکە: (H:هێڵە, L:خا). لووت: (H:لووتە, L:پۆز). چاو: (H:چەم, L:تیە). قاچ: (H:پا, L:قۆڵ).
-    - ئێستا: (H:ئیسە, L:ئیسە). بەیانی: (H:سەحەر, L:سوو). گەورە: (H:گۆرە, L:گەپ). جوان: (H:ڕەنگین, L:قەشەنگ).
-    - بۆچی: (H:پەی چێشی, L:ئەڕا چە). چۆن: (H:چەنی, L:چۊن). بەیانی (سبەی): (K:Sibê, Z:Meşte).
-    - تەواو: (Z:Qediya). کەم: (K:Hindik, Z:Şenik). زۆر: (K:Gelek, Z:Zof). پێکەنین: (K:Kenîn, Z:Huyayene).
-    - گریان: (H:بەرمە, K:Girîn, Z:Bermayiş). پێکەنین: (K:Kenîn, Z:Huyayiş, H:خەنە).
-- سوێر: (H:سۆر, L:شۊر, K:Şor, Z:Solin). خۆشەویستی: (K:Evîn, Z:Heskerdene, H:وەشەویسی).
-- هاوڕێ: (L:دۆس, K:Heval, Z:Embaz, H:ڕەفێق). مێرد: (H:شوی, K:Mêr, Z:Mêrdek).
-- خەزوور: (H:وەسیە, K:Xezûr, Z:Vesur). بووک: (H:وەیوە, L:بۊگ, K:Bûk, Z:Veyve).
-- زاوا: (K:Zava, Z:Zama). پرسیار: (H:پەرسار, K:Pirs, Z:Pers). وەڵام: (K:Bersiv).
-- ڕاست: (Z:Raşt). درۆ: (L:درۊ, K:Derew, Z:Zûr). ڕۆیشتن: (H:لوای, L:ڕۊین, K:Çûn, Z:Şiyayiş).
-- دانیشتن: (K:Rûniştin, Z:Roniştiş, H:نیشتەی). هەستان: (H:هۆرزای, L:هەسان, K:Rabin, Z:Werziştiş).
-- نووستن: (H:وەتەی, L:خەفتن, K:Razan, Z:Rakewtiş). کراس: (H:کەوا).
-- شەرواڵ: (H:پانتۆڵ). سمێڵ: (H:سێپاڵە, K:Simêl, Z:Simbêl). مل: (K:Stû).
-- سک: (H:زگ, K:Zik). سنگ: (K:Sîng, Z:Sêne). قۆڵ: (K:Mil, Z:Bask).
-- گەدە: (K:Aşîk, Z:Mide). جگەر: (K:Keze). پەنجە: (K:Tilî, Z:Bişte).
-- نینۆک: (H:ناخوون, K:Neynok, Z:Ningi). قورس: (K:Giran). سووک: (L:سۊک, K:Sivik).
-- درێژ: (L:دریژ, Z:Derx). کورت: (H:کوڵ, Z:Kilim). تەنک: (K:Zirav).
-- ئەستوور: (L:ئەستۊر, K:Stûr, Z:Oç). تفت: (K:Tif). زوو: (L:زۊ, Z:Rew).
-- درەنگ: (H:دێر, K:Dereng, Z:Ere). تاریک: (K:Tarî). ڕووناک: (H:ڕۆشن, K:Ronî, Z:Aşti).
-- بەرز: (K:Bilind). قوڵ: (L:قۊڵ, K:Kûr, Z:Xorî). تەنیا: (K:Bi tenê, Z:Teyna).
-- پێکەوە: (H:پێوە, L:وەگەردیەک, K:Bi hev re, Z:Pêra). نزیک: (Z:Nezdî). دوور: (L:دۊر, Z:Dûrî).
-- لێرە: (H:چێگە, K:Li vir, Z:Tiya). لەوێ: (H:چەولای, K:Li wir, Z:Uca). ژیان: (H:ژیای, Z:Ciwîyayiş).
-- شەڕ: (H:جەنگ, Z:Ceng). برسی: (H:وێسی, K:Birçî, Z:Veyşan). تینوو: (H:تەژنە, L:تێنی, K:Tî, Z:Têşan).
-- تێر: (Z:Mird). ترس: (H:تەرسێ, K:Tirs, Z:Ters). هێز: (H:تاقەت, K:Hêz, Z:Qewet).
-- پەلە: (H:شتاو, K:Lez). چاوەڕێ: (H:چەمەڕا, K:Li bendê, Z:Pepa). جێگا: (H:یاگە, K:Cih, Z:Caa).
-- ڕەگ: (K:Reh, Z:Rîşe). لق: (H:چڵ, K:Şax). گۆزە: (H:کەنوو, K:Kûz, Z:Dîze).
-- کلیل: (K:Mifte, Z:Kilît). دیوار: (Z:Dês). سەقف: (H:بان, L:بان, K:Bani, Z:Bane).
-- حەوشە: (H:حەوشێ, K:Hewş). دراوسێ: (H:هەمسایە, L:هاوسا, K:Cîran). میوان: (H:مێمان, L:میەمان, K:Mêvan, Z:Meyman).
-- گۆڕانکاری: (H:فاڕیای, L:ئاڵشتکاری, K:Guhertin, Z:Vuriyayiş). نەخۆش: (H:وەشەو, K:Nexweş, Z:Nêweş).
-- دەرمان: (H:دەوا). پزیشک: (H:حەکیم, K:Nijdar). خوێندن: (H:وەنەی, L:خوەنین, Z:Wendene).
-- یاری: (K:Lîstik, Z:Kay). گۆرانی: (K:Stran, Z:Klam). هەڵپەڕکێ: (L:چووپی, K:Govend, Z:Govende).
-- شمشێر: (K:Şûr). ئەڵقە: (K:Gusti). گوارە: (K:Guhar, Z:Goşare). ملوانکە: (H:گەردەنە, K:Gerdenî, Z:Gerdeniye).
-​گریان: (H: بەرمە، K: Girîn، Z: Bermayiş)
-​پێکەنین: (H: خەنە، L: خەنە، K: Kenîn، Z: Huyayiş)
-​سوێر: (H: سۆر، L: شۊر، K: Şor، Z: Solin)
-​زەوی: (H: زەمین، L: زەمین، K: Zevî، Z: Zemîn)
-​خۆشەویستی: (H: وەشەویسی، L: خوەشەویسی، K: Evîn، Z: Heskerdene)
-​هاوڕێ: (H: ڕەفێق، L: دۆس، K: Heval، Z: Embaz)
-​مێرد: (H: شوی، K: Mêr، Z: Mêrdek)
-​خەزوور: (H: وەسیە، L: خەسۊر، K: Xezûr، Z: Vesur)
-​بووک: (H: وەیوە، L: بۊگ، K: Bûk، Z: Veyve)
-​زاوا: (K: Zava، Z: Zama)
-​پرسیار: (H: پەرسار، K: Pirs، Z: Pers)
-​وەڵام: (H: جەواب، L: جەواو، K: Bersiv، Z: Cewab)
-​ڕاست: (H: ڕاس، L: ڕاس، K: Rast، Z: Raşt)
-​درۆ: (L: درۊ، K: Derew، Z: Zûr)
-​ڕۆیشتن: (H: لوای، L: ڕۊین، K: Çûn، Z: Şiyayiş)
-​دانیشتن: (H: نیشتەی، L: نیشتن، K: Rûniştin، Z: Roniştiş)
-​هەستان: (H: هۆرزای، L: هەسان، K: Rabin، Z: Werziştiş)
-​نووستن: (H: وەتەی، L: خەفتن، K: Razan، Z: Rakewtiş)
-​کراس: (H: کەوا، K: Kiras، Z: Kiras)
-​شەرواڵ: (H: پانتۆڵ، K: Şelwal، Z: Şelwal)
-​مل: (K: Stû، Z: Mil)
-​سک: (H: زگ، L: زگ، K: Zik، Z: Zik)
-​سنگ: (H: سینە، K: Sîng، Z: Sêne)
-​قۆڵ: (K: Mil، Z: Bask)
-​گەدە: (H: مەعیدە، K: Aşîk، Z: Mide)
-​جگەر: (H: جەرگ، L: جەرگ، K: Keze، Z: Ceger)
-​پەنجە: (H: پنچە، K: Tilî، Z: Bişte)
-​نینۆک: (H: ناخوون، L: نینۆگ، K: Neynok، Z: Ningi)
-​قورس: (K: Giran، Z: Giran)
-​سووک: (H: سوک، L: سۊک، K: Sivik، Z: Sivik)
-​درێژ: (L: دریژ، K: Dirêj، Z: Derx)
-​کورت: (H: کوڵ، L: کوڵ، K: Kurd، Z: Kilim)
-​تەنک: (K: Zirav، Z: Tenik)
-​ئەستوور: (L: ئەستۊر، K: Stûr، Z: Oç)
-​زوو: (L: زۊ، K: Zû، Z: Rew)
-​درەنگ: (H: دێر، L: دێر، K: Dereng، Z: Ere)
-​قوڵ: (H: قووڵ، L: قۊڵ، K: Kûr، Z: Xorî)
-​تەنیا: (K: Bi tenê، Z: Teyna)
-​پێکەوە: (H: پێوە، L: وەگەردیەک، K: Bi hev re، Z: Pêra)
-​نزیک: (H: نێزیک، L: نێزیک، K: Nêzîk، Z: Nezdî)
-​دوور: (L: دۊر، K: Dûr، Z: Dûrî)
-​لێرە: (H: چێگە، L: ئێرە، K: Li vir، Z: Tiya)
-​لەوێ: (H: چەولای، L: ئەوێ، K: Li wir، Z: Uca)
-​ژیان: (H: ژیای، K: Jiyan، Z: Ciwîyayiş)
-​شەڕ: (H: جەنگ، K: Şer، Z: Ceng)
-​برسی: (H: وێسی، K: Birçî، Z: Veyşan)
-​تینوو: (H: تەژنە، L: تێنی، K: Tî، Z: Têşan)
-​تێر: (K: Têr، Z: Mird)
-​ترس: (H: تەرسێ، K: Tirs، Z: Ters)
-​هێز: (H: تاقەت، K: Hêz، Z: Qewet)
-​پەلە: (H: شتاو، K: Lez، Z: Lez)
-​چاوەڕێ: (H: چەمەڕا، L: چەوەڕێ، K: Li bendê، Z: Pepa)
-​جێگا: (H: یاگە، L: جێ، K: Cih، Z: Caa)
-​ڕەگ: (H: ڕیشە، K: Reh، Z: Rîşe)
-​لق: (H: چڵ، K: Şax، Z: Liq)
-​گۆزە: (H: کەنوو، K: Kûz، Z: Dîze)
-​کلیل: (K: Mifte، Z: Kilît)
-​دیوار: (K: Dîwar، Z: Dês)
-​سەقف: (H: بان، L: بان، K: Bani، Z: Bane)
-​دراوسێ: (H: هەمسایە، L: هاوسا، K: Cîran، Z: Cîran)
-​میوان: (H: مێمان، L: میەمان، K: Mêvan، Z: Meyman)
-​گۆڕانکاری: (H: فاڕیای، L: ئاڵشتکاری، K: Guhertin، Z: Vuriyayiş)
-​نەخۆش: (H: وەشەو، L: نەخوەش، K: Nexweş، Z: Nêweş)
-​دەرمان: (H: دەوا، K: Derman، Z: Derman)
-​پزیشک: (H: حەکیم، L: دکتۆر، K: Nijdar، Z: Doktor)
-​خوێندن: (H: وەنەی، L: خوەنین، K: Xwendin، Z: Wendene)
-​یاری: (H: بازی، L: بازی، K: Lîstik، Z: Kay)
-​گۆرانی: (K: Stran، Z: Klam)
-​هەڵپەڕکێ: (L: چووپی، K: Govend، Z: Govende)
-​قەڵغان: (K: Mertal، Z: Qelxan)
-​گوارە: (H: گۆشەوارە، K: Guhar، Z: Goşare)
-​ملوانکە: (H: گەردەنە، K: Gerdenî، Z: Gerdeniye)
-​ڕاکردن: (H: تەردەی، L: تەقانن، K: Bezîn، Z: Remayiş)
-​فڕین: (H: فڕیەی، K: Firîn، Z: Perayiş)
-​سووتان: (H: سۆچیای، L: سزیان، K: Şewitîn، Z: Vêşayiş)
-​کڕین: (H: ئەسیەی، L: سەنن، K: Kirîn، Z: Eritiş)
-​فرۆشتن: (H: وەردەی، L: فرۊتن، K: Firotin، Z: Rotiş)
-​دۆزینەوە: (H: ئێستەی، L: پەیاکردن، K: Dîtin، Z: Diyayiş)
-​شکان: (H: مڕیای، K: Şikestin، Z: Şikiyayiş)
-​بەستن: (H: بەستەی، L: بەسن، K: Girêdan، Z: Girediş)
-​بیستن: (H: ئەژنەویەی، L: ژنەفتن، K: Bîhîstin، Z: Eşnawitiş)
-​بۆنکردن: (H: بۆکەردەی، L: بۊکردن، K: Bêhnkirin، Z: Bokerdene)
-​قەڵەو: (K: Qelew، Z: Xişn)
-​لاواز: (H: زەعیف، L: لاغەر، K: Zeyîf، Z: Zeîf)
-​شێت: (K: Dîn، Z: Xêc)
-​ژیر: (H: عاقڵ، L: عاقڵ، K: Jîr، Z: Aqilmend)
-​پیس: (L: چەپەڵ، K: Gemar، Z: Leymin)
-​هەژار: (H: فەقیر، L: دەسکوتا، K: Hejar، Z: Feqîr)
-​دەوڵەمەند: (H: دەوڵەمەن، L: پۊلدار، K: Dewlemend، Z: Zengîn)
-​توند: (H: قایم، L: تۊن، K: Tund، Z: Pêt)
-​شل: (K: Sist، Z: Şil)
-​وشک: (L: هوشک، K: Hişk، Z: Huşk)
-​تەڕ: (K: Ter، Z: Hêdî)
-​بەتاڵ: (H: واڵی، L: خاڵی، K: Vala، Z: Veng)
-​کراوە: (H: کەردەوا، L: واکریاگ، K: Vekirî، Z: Akerde)
-​داخراو: (H: بەسیە، L: بەسیەی، K: Girtî، Z: Girewte)
-​قوڕ: (K: Herî، Z: Lêr)
-​تۆز: (L: تەپوز، K: Toz، Z: Toz)
-​دووکەڵ: (L: دۊکەڵ، K: Dû، Z: Duman)
-​شوشە: (H: شیشە، L: شیشە، K: Şûşe، Z: Şuşe)
-​ئاسن: (K: Hesin، Z: Asin)
-​زێڕ: (H: زەڕ، L: تەڵا، K: Zêr، Z: Zêr)
-​زیو: (L: نوقرە، K: Zîv، Z: Zêm)
-​مێش: (H: مەشێ، L: مەگس، K: Mêş، Z: Mêşe)
-​مێشوولە: (H: پەشە، L: پەشە، K: Pêşû، Z: Viza)
-​پەپوولە: (L: پەپۊلە، K: Piling، Z: Perperik)
-​دووپشک: (H: کۆڵدم، K: Dûpişk، Z: Dumare)
-​مێشک: (H: مەزگ، L: مەزگ، K: Mêjî، Z: Mezg)
-​ڕیخۆڵە: (H: ڕۆیەڵە، L: ڕۊەڵە، K: Rovî، Z: Rovî)
-​گورچیلە: (H: وەڵک، L: گورچگ، K: Gurçik، Z: Gurçike)
-​سێبەر: (H: سایە، L: سایە، K: Sî، Z: Sersî)
-​چیا: (H: کۆ، L: کۊە، K: Çiya، Z: Ko)
-​کێڵگە: (H: مەزرەعە، K: Zevî، Z: Zewî)
-​گەنم: (L: گەنن، K: Genim، Z: Genim)
-​جۆ: (H: جەو، L: جۊ، K: Ceh، Z: Cew)
-​ڕۆن: (H: ڕۆەن، L: ڕۊن، K: Rûn، Z: Rûn)
-​ماست: (H: ماس، L: ماس، K: Mast، Z: Mast)
-​دۆ: (L: دۊ، K: Dew، Z: Dew)
-​ئارەقە: (H: ئارەق، L: ئارەق، K: Xwêdan، Z: Areq)
-​فرمێسک: (H: ئەسرین، L: ئەسر، K: Hêsir، Z: Hesir)
-​تف: (H: تیک، K: Tif، Z: Tuf)
-​کۆکە: (L: کۆخە، K: Kuxik، Z: Kuxik)
-​پژمە: (K: Bêhn، Z: Pişme)
-​هەناسە: (K: Bêhn، Z: Henase)
-​ڕۆح: (H: گیان، L: گیان، K: Rih، Z: Giyan)
-​مردوو: (H: مەردە، L: مردگ، K: Mirî، Z: Merde)
-​زیندوو: (H: زینە، L: زنە، K: Zindî، Z: Gane)
-​کوێر: (H: کۆر، L: کۊر، K: Kor، Z: Kor)
-​تاوان: (K: Sûc، Z: Sûc)
-​سزا: (K: Ceza، Z: Ceza)
-​خەڵات: (K: Xelat، Z: Xelat)
-​جەژن: (H: جەژنە، K: Cejn، Z: Roşan)
-​پرسە: (K: Şîn، Z: Şîn)
-​بوومەلەرزە: (L: زەمین‌لەرزە، K: Erdhej، Z: Bumelerze)
-​لافاو: (K: Lehî، Z: Lafaw)
-​گوڵزار: (H: وڵزار، K: Gulistan، Z: Gulistan)
-​ئامێر: (K: Amûr، Z: Hacet)
-​وێنە: (K: Wêne، Z: Resim)
-​دەنگ: (K: Deng، Z: Veng)
-​نامە: (K: Name، Z: Mektube)
-​چیرۆک: (H: حیکایەت، K: Çîrok، Z: Estanike)
-​کتێب: (L: کتێو، K: Pirtûk، Z: Kıtab)
-​قەڵەم: (K: Pênûs، Z: Qeleme)
-​مێز: (K: Mase، Z: Mase)
-​نوێن: (L: نۊن، K: Nivîn، Z: Nivîn)
-​خەنجەر: (K: Xencer، Z: Xencer)
-​کەشتی: (H: گەمیە، K: Keştî، Z: Gemi)
-​فڕۆکە: (H: تەیارە، L: تەیارە، K: Bafir، Z: Teyare)
-​شەمەندەفەر: (H: قەتار، L: قەتار، K: Tirên، Z: Tirên)
-​پرد: (K: Pir، Z: Pird)
-​جادە: (K: Cadde، Z: Cade)
-​کۆڵان: (L: کۊچە، K: Kolan، Z: Kolan)
-​بازاڕ: (K: Bazar، Z: Çarşî)
-​دوکان: (H: دۆکان، L: دۊکان، K: Dikan، Z: Dikan)
-​مزگەوت: (H: مزگی، L: مزگەفت، K: Mizgeft، Z: Mizgeft)
-​گۆڕستان: (H: قەورسان، L: قەورسان، K: Goristan، Z: Mezel)
-​جوتیار: (H: وەرزێر، K: Cotkar، Z: Cotkar)
-​سەرباز: (K: Leşker، Z: Esker)
-"""
 
-# --- ٣. دیزاینی CSS (چاککردنی بۆکسە ڕەشەکە و لادانی هێڵەکان) ---
+# --- ٤. دیزاینی CSS (چاککردنی بۆکسە ڕەشەکە و لادانی هێڵەکان) ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap');
@@ -293,20 +101,28 @@ st.markdown(f"""
     </style>
     """, unsafe_allow_html=True)
 
-# --- ٤. لۆژیکی AI ---
-def stream_ai(text, src, trg, ttype):
+# --- ٥. لۆژیکی AI لەگەڵ Cache بۆ پاراستنی کلیلەکان ---
+@st.cache_data(show_spinner=False, ttl=3600) # ئەنجامەکان بۆ یەک کاتژمێر پاشەکەوت دەکات
+def get_ai_response(text, src, trg, ttype):
     keys = [st.secrets.get(f"GEMINI_KEY_{i}") for i in range(1, 21) if st.secrets.get(f"GEMINI_KEY_{i}")]
-    if not keys: return None
+    if not keys: return "هەڵە لە کلیلەکان"
+    
     genai.configure(api_key=random.choice(keys))
+    model = genai.GenerativeModel('gemini-3.1-flash-lite-preview', system_instruction=K_BASE)
+    
+    prompts = {
+        "translate": f"وەرگێڕە لە {src} بۆ {trg}: {text}",
+        "abc": f"بگۆڕە (ئارامی ↔ لاتینی): {text}",
+        "num": f"ژمارە بکە بە پیت بە {trg}: {text}"
+    }
+    
     try:
-        model = genai.GenerativeModel('gemini-3.1-flash-lite-preview', system_instruction=K_BASE)
-        if ttype == "translate": p = f"وەرگێڕە بۆ {trg}: {text}"
-        elif ttype == "abc": p = f"ئەم دەقە بگۆڕە (ئارامی بۆ لاتینی یان بەپێچەوانە): {text}"
-        else: p = f"ئەم ژمارەیە بکە بە پیت بە {trg}: {text}"
-        return model.generate_content(p)
-    except: return None
+        response = model.generate_content(prompts.get(ttype, text))
+        return response.text
+    except:
+        return "داواکارییەکە جێبەجێ نەکرا. دووبارە هەوڵ بدەرەوە."
 
-# --- ٥. UI ---
+# --- ٦. UI ---
 st.markdown('<div class="daily-banner">✨ بەخێربێن بۆ یەکەمین وەرگێڕی شێوەزارە کوردییەکان</div>', unsafe_allow_html=True)
 if logo: st.markdown(f'<div style="text-align:center; margin-bottom: 10px;"><img src="data:image/gif;base64,{logo}" width="65"></div>', unsafe_allow_html=True)
 
