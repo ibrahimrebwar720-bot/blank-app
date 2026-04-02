@@ -49,20 +49,39 @@ SYSTEM_PROMPT = f"""
 .٥.خێرا وەرگێڕان بکە (ئەمەیان زۆر توندە)
 """
 
-# --- ٤. دیزاینی CSS ---
+# --- ٤. دیزاینی CSS (ڕەنگە سپییەکە لێرە چاک کراوە) ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap');
+    
     html, body, [data-testid="stAppViewContainer"] {{ 
         background-color: #0E0A1A !important; 
         background-image: radial-gradient(circle at 50% 0%, #2A1B54 0%, transparent 50%);
     }}
+    
     #MainMenu, header, footer, .stDeployButton {{visibility: hidden; display: none;}}
     .block-container {{ padding-top: 1rem !important; max-width: 450px !important; }}
     * {{ font-family: 'Vazirmatn', sans-serif !important; direction: rtl; text-align: right; color: #F8FDFE !important; }}
-    div[data-baseweb="popover"], div[data-baseweb="menu"] {{ background-color: #1A1230 !important; border: 1px solid rgba(107, 91, 226, 0.4) !important; border-radius: 12px !important; }}
-    li[data-baseweb="option"] {{ background-color: transparent !important; color: white !important; }}
-    li[data-baseweb="option"]:hover {{ background-color: #5A49D9 !important; }}
+    
+    /* چاککردنی ڕەنگی سپی منووەکان و لیستەکان */
+    div[data-baseweb="popover"], div[data-baseweb="menu"], ul {{ 
+        background-color: #1A1230 !important; 
+        border: 1px solid rgba(107, 91, 226, 0.4) !important; 
+        border-radius: 12px !important;
+    }}
+    
+    li[data-baseweb="option"] {{ 
+        background-color: #1A1230 !important; 
+        color: white !important; 
+    }}
+    
+    li[data-baseweb="option"]:hover {{ 
+        background-color: #5A49D9 !important; 
+    }}
+
+    /* چاککردنی پاشبنەمای نوسین لە مۆبایلدا */
+    div[data-testid="stMarkdownContainer"] p {{ color: #F8FDFE !important; }}
+    
     div[data-baseweb="select"] > div {{ background: rgba(42, 27, 84, 0.4) !important; border: 1px solid rgba(107, 91, 226, 0.2) !important; border-radius: 15px !important; }}
     .stTabs [data-baseweb="tab-list"] {{ display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; background: rgba(255, 255, 255, 0.03); padding: 5px; border-radius: 15px; }}
     .stTabs [data-baseweb="tab"] {{ width: 100% !important; border: none !important; }}
